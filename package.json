@@ -2,10 +2,9 @@
      "name": "chat-call-server",
      "version": "1.0.0",
      "scripts": {
-          "start": "vercel dev"
+          "start": "node server.js"
      },
      "dependencies": {
-          "jssip": "^3.10.0",
           "ws": "^8.14.2"
      }
 }
