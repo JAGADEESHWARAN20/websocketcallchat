@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 
-// Use the port assigned by Render (default 10000) or fall back to 8080 for local development
-const PORT = process.env.PORT || 8080;
+// Use the port assigned by Render (default 10000) or fall back to 8081 for local development
+const PORT = process.env.PORT || 8081;
 
 const wss = new WebSocket.Server({ port: PORT });
 
@@ -19,7 +19,7 @@ wss.on('connection', (ws) => {
           try {
                const data = JSON.parse(message);
 
-               if (data.type === 'status') {
+               if (data.type === 'status_update') {
                     clients.get(clientId).status = data.status;
                     broadcastStatus(clientId, data.status);
                } else if (data.type === 'call') {
@@ -28,11 +28,6 @@ wss.on('connection', (ws) => {
                     broadcast({ type: 'chat_message', target: data.target, message: data.message });
                } else if (data.type === 'transfer') {
                     broadcast({ type: 'transfer_request', target: data.target });
-               }
-
-               // Log SIP messages for debugging
-               if (typeof message === 'string' && message.startsWith('REGISTER sip:')) {
-                    console.log('Received SIP message:', message);
                }
           } catch (error) {
                console.error('Error processing message:', error);
