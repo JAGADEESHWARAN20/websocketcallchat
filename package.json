@@ -5,6 +5,8 @@
           "start": "node server.js"
      },
      "dependencies": {
-          "ws": "^8.14.2"
+          "ari-client": "^2.2.0",
+          "dotenv": "^16.5.0",
+          "ws": "^8.18.2"
      }
 }
